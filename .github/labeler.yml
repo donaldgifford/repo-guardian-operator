@@ -1,0 +1,73 @@
+# Auto-label PRs based on changed files and branch name patterns.
+# Used by actions/labeler in ci.yml.
+
+go:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "cmd/**/*.go"
+          - "internal/**/*.go"
+          - "api/**/*.go"
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "go.mod"
+          - "go.sum"
+          - "mise.toml"
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "README.md"
+          - "DEVELOPMENT.md"
+          - "CLAUDE.md"
+          - "AGENTS.md"
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+          - "Makefile"
+          - "make/**"
+
+repo:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".golangci.yml"
+          - ".custom-gcl.yml"
+          - ".dockerignore"
+          - ".gitignore"
+          - "mise.toml"
+          - "scripts/**"
+          - "docker-bake.hcl"
+
+docker:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "Dockerfile"
+          - "cmd/wiz-mock/Dockerfile"
+          - "docker-bake.hcl"
+
+kubernetes:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "config/**"
+          - "hack/**"
+
+feature:
+  - head-branch:
+      - "^feat"
+      - "feature"
+
+fix:
+  - head-branch:
+      - "^fix"
+
+chore:
+  - head-branch:
+      - "^chore"
+
+docs:
+  - head-branch:
+      - "^docs"

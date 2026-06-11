@@ -1,0 +1,22 @@
+---
+# $schema=https://www.schemastore.org/catalog-info.json
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: repo-guardian-operator
+  title: Repo Guardian Operator
+  description: >
+    A Kubernetes Operator that provides controllers and apis that automates repository onboarding and compliance across a
+    GitHub organization. It detects missing configuration files (CODEOWNERS, Dependabot, Renovate) and creates pull requests
+    with sensible defaults.
+  annotations:
+    backstage.io/source-location: url:https://github.com/donaldgifford/repo-guardian-operator
+    backstage.io/techdocs-ref: "dir:."
+  tags:
+    - hcl2
+    - go
+spec:
+  lifecycle: production
+  type: tool
+  owner: donald
+  system: dev-tools

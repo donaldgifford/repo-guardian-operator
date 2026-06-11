@@ -1,0 +1,10 @@
+---
+coverage:
+  status:
+    project:
+      default:
+        target: 60%
+        threshold: 40%
+ignore:
+  - "docs"
+  - "scripts"

@@ -1,0 +1,51 @@
+---
+name: CI
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  labeler:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    name: Label PR
+    steps:
+      - uses: actions/labeler@v6
+
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Vendor dependencies
+        run: go mod vendor
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build multi-arch images (validate)
+        uses: docker/bake-action@v7
+        with:
+          targets: ci
+          source: .
+          files: docker-bake.hcl
+          set: |-
+            *.cache-from=type=gha
+            *.cache-to=type=gha,mode=max

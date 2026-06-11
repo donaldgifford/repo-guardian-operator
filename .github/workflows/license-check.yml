@@ -1,0 +1,37 @@
+---
+name: License Check
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  license-check:
+    name: Check Licenses
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Install go-licenses
+        run: go install github.com/google/go-licenses@latest
+
+      - name: Check licenses
+        run: go-licenses check ./... --allowed_licenses=Apache-2.0,MIT,BSD-2-Clause,BSD-3-Clause,ISC,MPL-2.0
+
+      - name: Generate license report
+        run: go-licenses csv ./... --template=.github/licenses-csv.tpl > licenses.csv
+        continue-on-error: true
+
+      - name: Upload license report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-report
+          path: licenses.csv
