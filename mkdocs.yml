@@ -1,17 +1,17 @@
----
 nav:
-  - Home: index.md
-  - ADRs:
-      - Overview: adr/README.md
-  - Design:
-      - Overview: design/README.md
-  - Implementation Plans:
-      - Overview: impl/README.md
-  - Investigations:
-      - Overview: investigation/README.md
-  - RFCs:
-      - Overview: rfc/README.md
+    - Home: index.md
+    - ADRs:
+        - Overview: adr/README.md
+    - Design:
+        - Overview: design/README.md
+    - Implementation Plans:
+        - Overview: impl/README.md
+    - Investigations:
+        - Overview: investigation/README.md
+        - 'INV-0001: Operator architecture for multi-org repo-guardian': investigation/0001-operator-architecture-for-multi-org-repo-guardian.md
+    - RFCs:
+        - Overview: rfc/README.md
 plugins:
-  - techdocs-core
+    - techdocs-core
 site_description: Documentation for repo-guardian-operator
 site_name: repo-guardian-operator
